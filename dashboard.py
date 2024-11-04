@@ -15,9 +15,17 @@ st.sidebar.title('Startup Funding Analysis')
 pages=['Overall Analysis','Startups Analyis','Invester Analysis']
 btn1= st.sidebar.selectbox('Select Your Choice',pages)
 total=str(round(df.Funding_Amount.sum(),2)) + " Cr"
+max_=str(round(df['Funding_Amount'].max(),2)) +' Cr'
+df_sorted = df.sort_values(by='Funding_Amount', ascending=False).head(10)
+# selected_columns = df_sorted  
 if btn1==pages[0]:
-    st.metric(label='Total Funding Raised',value=total)
-
+    x,y=st.columns(2)
+    with x:
+        st.metric(label='Total Funding Raised',value=total)
+    with y:
+        st.metric(label='Maximum Funding Raised',value=max_)
+    st.write('          Top Funding getting Company')
+    st.dataframe(df_sorted)
 if btn1==pages[1]:
     btn1= st.sidebar.selectbox('Choose your Startup',df['Invester_name'].unique())
     
