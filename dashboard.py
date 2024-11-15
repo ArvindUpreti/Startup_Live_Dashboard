@@ -4,6 +4,11 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
+st.set_page_config(
+    layout="wide",  # Sets the layout to wide mode
+      # Expands the sidebar by default
+)
 df=pd.read_csv('clean_data.csv')
 a,b= st.columns(2)
 with a:
@@ -27,8 +32,10 @@ if btn1==pages[0]:
     st.write('          Top Funding getting Company')
     st.dataframe(df_sorted)
 if btn1==pages[1]:
-    btn2= st.sidebar.selectbox('Choose your Startup',df['Invester_name'].unique())
-    st.metric(label='Total Investment',value=str((df.groupby('Invester_name')['Funding_Amount_in_cr'].sum().loc[btn2])) +' Crs')
-
-if btn1==pages[2]:
     pass
+if btn1==pages[2]:
+    btn2= st.sidebar.selectbox('Choose your Startup',df['Invester_name'].unique())
+    st.metric(label='Total Investment',value=str((df.groupby('Invester_name')['Funding_Amount_in_cr'].sum().loc[btn2])) +' Crs ')
+    top = df.groupby('Industry_Vertical')['Funding_Amount_in_cr'].sum().sort_values(ascending =False).head(3)
+    
+    st.bar_chart(top)
