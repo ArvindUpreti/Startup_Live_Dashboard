@@ -6,8 +6,7 @@ import seaborn as sns
 
 
 st.set_page_config(
-    layout="wide",  # Sets the layout to wide mode
-      # Expands the sidebar by default
+    layout="wide",page_title='Start-up Analysis Dashboard' 
 )
 df=pd.read_csv('clean_data.csv')
 a,b= st.columns(2)
